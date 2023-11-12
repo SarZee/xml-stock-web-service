@@ -11,7 +11,7 @@ const service = {
                     Product_price,
                     Expire_date,
                     Product_quantity,
-                    Product_status) VALUES (?, ?, ?, ?, ?, ?)`,
+                    Product_status) VALUES (?, ?, ?, ?, ?, ?);`,
 
                     [Item.ID_product, 
                     Item.Product_name,
@@ -22,9 +22,9 @@ const service = {
 
                     (err) => {
                         if (err)
-                            callback({ result: 'Cannot Add Item: ' + err.message });
+                            callback ({ result: 'Cannot Add Item: ' + err.message });
                         else
-                            callback({ result: '<h3>Item Added.</h3>' , Item });
+                            callback ({ result: '<h3>Item Added.</h3>' , Item });
                     });
             } ,
             UpdateItem: (Item) => {

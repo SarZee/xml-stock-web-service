@@ -12,15 +12,13 @@ const args = {
 };
 
 soap.createClient(url, (err, client) => {
-    if (err) {
+    if (err)
         console.error(err);
-    } else {
+    else
         client.AddItem(args, (err, result) => {
-            if (err) {
+            if (err)
                 console.error(err);
-            } else {
+            else
                 console.log(result);
-            }
         });
-    }
 });

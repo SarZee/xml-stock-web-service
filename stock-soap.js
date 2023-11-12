@@ -5,14 +5,16 @@ const service = {
     StockService: {
         StockPort: {
             AddItem: (Item, callback) => {
+                console.table(Item);
+                console.log(Item.ID_product);
                 db.run(`INSERT INTO inventory (
                     ID_product, 
                     Product_name,
                     Product_price,
                     Expire_date,
-                    Product_quatity,
+                    Product_quantity,
                     Product_status) VALUES (?, ?, ?, ?, ?, ?)`,
-                    [Item.ID_product, Item.Product_name, Item.Product_price, Item.Expire_date, Item.Product_quatity, Item.Product_status], 
+                    [Item.ID_product, Item.Product_name, Item.Product_price, Item.Expire_date, Item.Product_quantity, Item.Product_status], 
                     (err, row) => {
                         if (err)
                             callback({ result: 'Cannot Add Item: ' + err.message });

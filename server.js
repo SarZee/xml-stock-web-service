@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const soap = require('./stock-soap');
+const soap = require('./scripts/stock-soap');
 
 soap.listen(server);
 

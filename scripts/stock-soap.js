@@ -20,11 +20,11 @@ const service = {
                     Item.Product_quantity,
                     Item.Product_status], 
 
-                    (err, row) => {
+                    (err) => {
                         if (err)
                             callback({ result: 'Cannot Add Item: ' + err.message });
                         else
-                            callback({ result: '<h3>Item Added.</h3>' , row });
+                            callback({ result: '<h3>Item Added.</h3>' , Item });
                     });
             } ,
             UpdateItem: (Item) => {

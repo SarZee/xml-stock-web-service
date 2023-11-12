@@ -7,6 +7,7 @@
 >
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/stock-service">
+            <!--Item Element-->
             <element name="Item">
                 <complexType>
                     <sequence>
@@ -22,6 +23,7 @@
         </schema>
     </types>
 
+    <!--Add Item-->
     <message name="AddItemRequest">
         <part name="parameter" element="tns:Item"/>
     </message>
@@ -29,6 +31,7 @@
         <part name="result" type="string"/>
     </message>
 
+    <!--Port Types-->
     <portType name="StockPort">
         <operation name="AddItem">
             <input message="AddItemRequest"/>
@@ -36,6 +39,7 @@
         </operation>
     </portType>
 
+    <!--Bindings-->
     <binding name="StockBinding" type="StockPort">
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="AddItem">
@@ -49,6 +53,7 @@
         </operation>
     </binding>
 
+    <!--Services-->
     <service name="StockService">
         <port name="StockPort" binding="StockBinding">
             <soap:address location="http://localhost:8000/stock-service/api/?wsdl"/>

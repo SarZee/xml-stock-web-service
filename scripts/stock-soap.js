@@ -1,5 +1,5 @@
 const soap = require('soap');
-const db = require('./stockdb');
+const db = require('./stock-db');
 
 const service = {
     StockService: {
@@ -24,32 +24,32 @@ const service = {
                         if (err)
                             callback ({ result: 'Cannot Add Item: ' + err.message });
                         else
-                            callback ({ result: '<h3>Item Added.</h3>' , Item });
+                            callback ({ result: '<p>Item Added.</p>' , Item });
                     });
             } ,
             UpdateItem: (Item) => {
-                return { result: '<h3>Item Updated.</h3>' + Item };
+                return { result: 'Item Updated.' + Item };
             } ,
             AddShipCost: (ShipCost) => {
-                return { result: '<h3>Shipping cost Added.</h3>' + ShipCost };
+                return { result: 'Shipping cost Added.' + ShipCost };
             } ,
             AddOrder: (Order) => {
-                return { result: '<h3>Order Added.</h3>' + Order };
+                return { result: 'Order Added.' + Order };
             } ,
             ConfirmOrder: (OrderID) => {
-                return { result: '<h3>Order Confirmed.</h3>' + OrderID };
+                return { result: 'Order Confirmed.' + OrderID };
             } ,
             RequestCancelOrder: (OrderID) => {
-                return { result: '<h3>Request Order Cancel.</h3>' + OrderID };
+                return { result: 'Incoming Request Order Cancel.' + OrderID };
             } ,
             CancelOrder: (OrderID) => {
-                return { result: '<h3>Order Canceled.</h3>' + OrderID };
+                return { result: 'Order Canceled.' + OrderID };
             }
         }
     }
 }
 
-const path = '/stock-service/api/';
+const path = '/stock-service/api';
 
 const wsdl = require('fs').readFileSync('./wsdl/stock.wsdl', 'utf-8');
 
@@ -57,4 +57,4 @@ function listen(server) {
     soap.listen(server, path, service, wsdl);
 };
 
-module.exports = { soap, listen }
+module.exports = { soap , listen }

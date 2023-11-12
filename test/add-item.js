@@ -2,7 +2,7 @@ const soap = require('soap');
 
 const url = 'http://localhost:8000/stock-service/api/?wsdl';
 
-const args = {
+const item1 = {
         ID_product: 1,
         Product_name: 'Test Product',
         Product_price: 10,
@@ -15,7 +15,7 @@ soap.createClient(url, (err, client) => {
     if (err)
         console.error(err);
     else
-        client.AddItem(args, (err, result) => {
+        client.AddItem(item1, (err, result) => {
             if (err)
                 console.error(err);
             else

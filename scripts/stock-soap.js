@@ -1,35 +1,11 @@
 const soap = require('soap');
-const db = require('./stock-db');
+const stock = require('./stock-functions');
 
 const service = {
     StockService: {
         StockPort: {
-            AddItem: (Item, callback) => {
-                db.run(`INSERT INTO inventory (
-                    ID_product, 
-                    Product_name,
-                    Product_price,
-                    Expire_date,
-                    Product_quantity,
-                    Product_status) VALUES (?, ?, ?, ?, ?, ?);`,
-
-                    [Item.ID_product, 
-                    Item.Product_name,
-                    Item.Product_price,
-                    Item.Expire_date,
-                    Item.Product_quantity,
-                    Item.Product_status], 
-
-                    (err) => {
-                        if (err)
-                            callback ({ result: 'Cannot Add Item: ' + err.message });
-                        else
-                            callback ({ result: '<p>Item Added.</p>' , Item });
-                    });
-            } ,
-            UpdateItem: (Item) => {
-                return { result: 'Item Updated.' + Item };
-            } ,
+            AddItem: (Item, callback) => stock.addItem(Item, callback),
+            UpdateItem: (Item, callback) => stock.updateItem(Item, callback),
             AddShipCost: (ShipCost) => {
                 return { result: 'Shipping cost Added.' + ShipCost };
             } ,
@@ -57,4 +33,4 @@ function listen(server) {
     soap.listen(server, path, service, wsdl);
 };
 
-module.exports = { soap , listen }
+module.exports = { soap, listen }

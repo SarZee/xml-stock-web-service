@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const soap = require('./scripts/stock-soap');
-const router = require('./scripts/routes');
+const router = require('./scripts/router');
 
 server.use('/stock-service/api', router);
 

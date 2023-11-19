@@ -1,1 +1,0 @@
-# XML Stock Web Service

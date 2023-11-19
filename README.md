@@ -1,6 +1,6 @@
 # Stock SOAP Web Service
-To run ```npm install```
+To run ```git clone https://github.com/SarZee/xml-stock-web-service```
 
-then ```npm start```.
+```npm install``` then ```npm start```.
 
 ```npm run service``` for full services list.

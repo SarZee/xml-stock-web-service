@@ -13,9 +13,9 @@
             <element name="Item">
                 <complexType>
                     <sequence>
-                        <element name="ID_product" type="xsd:int"/>
+                        <element name="ID_product" type="xsd:string"/>
                         <element name="Product_name" type="xsd:string"/>
-                        <element name="Product_price" type="xsd:int"/>
+                        <element name="Product_price" type="xsd:float"/>
                         <element name="Expire_date" type="xsd:string"/>
                         <element name="Product_quantity" type="xsd:int"/>
                         <element name="Product_status" type="xsd:string"/>
@@ -27,7 +27,7 @@
                 <complexType>
                     <sequence>
                         <element name="ID_shipment" type="xsd:string"/>
-                        <element name="Shipping_cost" type="xsd:double"/>
+                        <element name="Shipping_cost" type="xsd:float"/>
                     </sequence>
                 </complexType>
             </element>
@@ -41,11 +41,11 @@
                         <element name="Tel" type="xsd:string"/>
                         <element name="Order_date" type="xsd:string"/>
                         <element name="Sent_date" type="xsd:string"/>
-                        <element name="Total_price" type="xsd:double"/>
-                        <element name="Discount" type="xsd:double"/>
+                        <element name="Total_price" type="xsd:float"/>
+                        <element name="Discount" type="xsd:float"/>
                         <element name="Vat" type="xsd:int"/>
-                        <element name="Shipping_cost" type="xsd:double"/>
-                        <element name="Net_balance" type="xsd:double"/>
+                        <element name="Shipping_cost" type="xsd:float"/>
+                        <element name="Net_balance" type="xsd:float"/>
                         <element name="Order_status" type="xsd:string"/>
                     </sequence>
                 </complexType>

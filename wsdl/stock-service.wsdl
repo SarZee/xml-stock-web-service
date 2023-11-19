@@ -1,0 +1,59 @@
+<definitions 
+    targetNamespace="http://example.com/stock-service" 
+    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://example.com/stock-service">
+
+    <types>
+        <schema 
+            targetNamespace="http://example.com/stock-service" 
+            xmlns="http://www.w3.org/2001/XMLSchema">
+            <element name="Item">
+                <complexType>
+                    <sequence>
+                        <element name="ID_product" type="xsd:int"/>
+                        <element name="Product_name" type="xsd:string"/>
+                        <element name="Product_price" type="xsd:int"/>
+                        <element name="Expire_date" type="xsd:string"/>
+                        <element name="Product_quantity" type="xsd:int"/>
+                        <element name="Product_status" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+    <message name="AddItemRequest">
+        <part name="parameter" element="tns:Item"/>
+    </message>
+    <message name="AddItemResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <portType name="StockPortType">
+        <operation name="AddItem">
+            <input message="tns:AddItemRequest"/>
+            <output message="tns:AddItemResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="StockServiceBinding" type="tns:StockPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="AddItem">
+            <soap:operation soapAction="AddItem"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="StockService">
+        <port name="StockPort" binding="tns:StockServiceBinding">
+            <soap:address location="http://localhost:8000/stock-service/"/>
+        </port>
+    </service>
+</definitions>

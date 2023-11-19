@@ -9,6 +9,7 @@
         <schema 
             targetNamespace="http://example.com/stock-service" 
             xmlns="http://www.w3.org/2001/XMLSchema">
+            <!--Item Type-->
             <element name="Item">
                 <complexType>
                     <sequence>
@@ -21,27 +22,172 @@
                     </sequence>
                 </complexType>
             </element>
+            <!--Shipping Cost Type-->
+            <element name="ShippingCost">
+                <complexType>
+                    <sequence>
+                        <element name="ID_shipment" type="xsd:string"/>
+                        <element name="Shipping_cost" type="xsd:double"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <!--Order Type-->
+            <element name="Order">
+                <complexType>
+                    <sequence>
+                        <element name="ID_order" type="xsd:string"/>
+                        <element name="Name" type="xsd:string"/>
+                        <element name="Address" type="xsd:string"/>
+                        <element name="Tel" type="xsd:string"/>
+                        <element name="Order_date" type="xsd:string"/>
+                        <element name="Sent_date" type="xsd:string"/>
+                        <element name="Total_price" type="xsd:double"/>
+                        <element name="Discount" type="xsd:double"/>
+                        <element name="Vat" type="xsd:int"/>
+                        <element name="Shipping_cost" type="xsd:double"/>
+                        <element name="Net_balance" type="xsd:double"/>
+                        <element name="Order_status" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
         </schema>
     </types>
 
+    <!--Messages-->
     <message name="AddItemRequest">
         <part name="parameter" element="tns:Item"/>
     </message>
     <message name="AddItemResponse">
         <part name="result" type="xsd:string"/>
     </message>
+    <message name="UpdateItemRequest">
+        <part name="parameter" element="tns:Item"/>
+    </message>
+    <message name="UpdateItemResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="AddShippingCostRequest">
+        <part name="parameter" element="tns:ShippingCost"/>
+    </message>
+    <message name="AddShippingCostResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="AddOrderRequest">
+        <part name="parameter" element="tns:Order"/>
+    </message>
+    <message name="AddOrderResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="ConfirmOrderRequest">
+        <part name="parameter" type="xsd:string"/>
+    </message>
+    <message name="ConfirmOrderResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="RequestCancelOrderRequest">
+        <part name="parameter" type="xsd:string"/>
+    </message>
+    <message name="RequestCancelOrderResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="CancelOrderRequest">
+        <part name="parameter" type="xsd:string"/>
+    </message>
+    <message name="CancelOrderResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
 
+    <!--Port Type-->
     <portType name="StockPortType">
         <operation name="AddItem">
             <input message="tns:AddItemRequest"/>
             <output message="tns:AddItemResponse"/>
         </operation>
+        <operation name="UpdateItem">
+            <input message="tns:UpdateItemRequest"/>
+            <output message="tns:UpdateItemResponse"/>
+        </operation>
+        <operation name="AddShippingCost">
+            <input message="tns:AddShippingCostRequest"/>
+            <output message="tns:AddShippingCostResponse"/>
+        </operation>
+        <operation name="AddOrder">
+            <input message="tns:AddOrderRequest"/>
+            <output message="tns:AddOrderResponse"/>
+        </operation>
+        <operation name="ConfirmOrder">
+            <input message="tns:ConfirmOrderRequest"/>
+            <output message="tns:ConfirmOrderResponse"/>
+        </operation>
+        <operation name="RequestCancelOrder">
+            <input message="tns:RequestCancelOrderRequest"/>
+            <output message="tns:RequestCancelOrderResponse"/>
+        </operation>
+        <operation name="CancelOrder">
+            <input message="tns:CancelOrderRequest"/>
+            <output message="tns:CancelOrderResponse"/>
+        </operation>
     </portType>
 
+    <!--Binding-->
     <binding name="StockServiceBinding" type="tns:StockPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="AddItem">
-            <soap:operation soapAction="AddItem"/>
+            <soap:operation soapAction="AddItem" location="/add-item"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="UpdateItem">
+            <soap:operation soapAction="UpdateItem" location="/update-item"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddShippingCost">
+            <soap:operation soapAction="AddShippingCost" location="/add-shipping-cost"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddOrder">
+            <soap:operation soapAction="AddOrder" location="/add-order"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ConfirmOrder">
+            <soap:operation soapAction="ConfirmOrder" location="/confirm-order"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="RequestCancelOrder">
+            <soap:operation soapAction="RequestCancelOrder" location="/request-cancel-order"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CancelOrder">
+            <soap:operation soapAction="CancelOrder" location="/cancel-order"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -51,6 +197,7 @@
         </operation>
     </binding>
 
+    <!--Service-->
     <service name="StockService">
         <port name="StockPort" binding="tns:StockServiceBinding">
             <soap:address location="http://localhost:8000/stock-service/"/>

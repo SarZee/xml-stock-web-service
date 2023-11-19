@@ -24,7 +24,7 @@ soap.createClient(wsdl, options, (err, client) => {
             console.log(xml);
         });
 
-        client.ConfirmOrder(order, (err) => {
+        client.RequestCancelOrder(order, (err) => {
             if (err)
                 console.error(`Error updating order status: `, err.message);
             else

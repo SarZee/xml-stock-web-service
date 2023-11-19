@@ -104,7 +104,60 @@ function addShippingCost(args, callback) {
 }
 
 function addOrder(args, callback) {
+    const orderHeader = [
+        args.ID_shipment,
+        args.Name,
+        args.Address,
+        args.Tel,
+        args.ID_order,
+        args.Order_date,
+        args.Sent_date,
+        args.Shipment_cost,
+        args.Shipping_company,
+        args.Track_no,
+        'Pending'
+    ];
 
+    const orderDetail = args.details.map(detail => [
+        args.ID_order,
+        detail.ID_product,
+        detail.Product_name,
+        detail.Product_price,
+        detail.Product_quantity,
+        detail.Total_price
+    ]);
+
+    const db = new sqlite3.Database('./database/stock.db');
+
+    db.run(`INSERT INTO header (ID_shipment, Name, Address, Tel, ID_order, Order_date, Sent_date, Shipment_cost, Shipping_company, Track_no, Order_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        orderHeader, (err) => {
+            if (err) {
+                console.error(`Sqlite3 error: ${err.message}`);
+                callback(err, { result: 'Error adding header.' });
+            } else {
+                console.log('Order header added: ');
+                console.table(orderHeader);
+
+                orderDetail.forEach(detail => {
+                    db.run(`INSERT INTO detail (ID_order, ID_product, Product_name, Product_price, Product_quantity, Total_price) VALUES (?, ?, ?, ?, ?, ?)`,
+                        detail, (err) => {
+                            if (err) {
+                                console.error(`Sqlite3 error: ${err.message}`);
+                                callback(err, { result: 'Error adding detail.' });
+                            } else {
+                                console.log('Order detail added: ');
+                                console.table(detail);
+                            }
+                        });
+                });
+
+                callback(null, { result: 'Header and detail added successfully.' });
+            }
+
+        db.close();
+    });
+
+    // Send data
 }
 
 function confirmOrder(args, callback) {
@@ -135,12 +188,35 @@ function confirmOrder(args, callback) {
 }
 
 function requestCancelOrder(args, callback) {
+    const order = [
+        'Cancelled',
+        args.ID_order
+    ]
 
+    // Update status in database
+    const db = new sqlite3.Database('./database/stock.db');
+
+    db.run(`UPDATE header SET Order_status=? WHERE ID_order=?`,
+    order, (err) => {
+        if (err) {
+            console.error(`Sqlite3 error: ${err.message}`);
+            callback(err, { result: 'Error updating order status.' });
+        }
+        else {
+            console.log('Order status updated: ');
+            console.table(order);
+            callback(null, { result: 'Order status updated successfully.' });
+        }
+
+        db.close();
+    });
+
+    // Send data
 }
 
 function cancelOrder(args, callback) {
     const order = [
-        'Canceled',
+        'Cancelled',
         args.ID_order
     ]
 

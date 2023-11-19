@@ -1,17 +1,17 @@
 -- header definition
 
 CREATE TABLE header (
-	ID_shipment INTEGER,
+	ID_shipment TEXT,
 	Name TEXT,
 	Address TEXT,
 	Tel TEXT,
+	ID_order INTEGER,
 	Order_date TEXT,
 	Sent_date TEXT,
 	Shipment_cost NUMERIC,
 	Shipping_company TEXT,
 	Tracker_no TEXT,
 	Order_status TEXT,
-	ID_order INTEGER
 );
 
 CREATE UNIQUE INDEX header_ID_shipment_IDX ON header (ID_shipment);
@@ -19,8 +19,8 @@ CREATE UNIQUE INDEX header_ID_shipment_IDX ON header (ID_shipment);
 -- detail definition
 
 CREATE TABLE detail (
-	ID_order INTEGER,
-	ID_product INTEGER,
+	ID_order TEXT,
+	ID_product TEXT,
 	Product_name TEXT,
 	Product_price NUMERIC,
 	Product_quantity INTEGER,
@@ -32,7 +32,7 @@ CREATE INDEX detail_ID_order_IDX ON detail (ID_order);
 -- inventory definition
 
 CREATE TABLE inventory (
-	ID_product INTEGER,
+	ID_product TEXT,
 	Product_name TEXT,
 	Product_price NUMERIC,
 	Product_quantity INTEGER,
@@ -45,7 +45,7 @@ CREATE UNIQUE INDEX inventory_ID_product_IDX ON inventory (ID_product);
 -- master definition
 
 CREATE TABLE master (
-	ID_shipment INTEGER,
+	ID_shipment TEXT,
 	Shipping_cost NUMERIC
 );
 

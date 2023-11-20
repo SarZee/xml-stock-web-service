@@ -6,6 +6,8 @@ git clone https://github.com/SarZee/xml-stock-web-service
 then
 ```bash
 npm install
+```
+```bash
 npm start
 ```
 for full services list
